@@ -3,11 +3,12 @@ public class SpellChecker {
 
 
 	public static void main(String[] args) {
-		String word = args[0];
-		int threshold = Integer.parseInt(args[1]);
-		String[] dictionary = readDictionary("dictionary.txt");
-		String correction = spellChecker(word, threshold, dictionary);
-		System.out.println(correction);
+		//String word = args[0];
+		//int threshold = Integer.parseInt(args[1]);
+		//String[] dictionary = readDictionary("dictionary.txt");
+		//String correction = spellChecker(word, threshold, dictionary);
+		//System.out.println(correction);
+		System.out.println(levenshtein("SPELL", "spell"));
 	}
 
 	public static String tail(String str) {
@@ -15,11 +16,6 @@ public class SpellChecker {
 	}
 
 	public static int levenshtein(String word1, String word2) {
-		
-		// make sure all the words are lover case
-		word1 = word1.toLowerCase();
-		word2 = word2.toLowerCase();
-
 		if(word1.isEmpty()){
 			return word2.length();
 		}
@@ -28,15 +24,17 @@ public class SpellChecker {
 			return word1.length();
 		}
 
-		// 
+		// make sure all the words are lover case
+		word1 = word1.toLowerCase();
+		word2 = word2.toLowerCase();
+		int step = 0;
 		if(word1.charAt(0) == word2.charAt(0)){
 			// immediately return the value of levenshtein and do not reach the last return statment
 			return levenshtein(tail(word2), tail(word1));
 		}
-
 		int deletions = levenshtein(tail(word1), word2); 
 		int insertions = levenshtein(word1, tail(word2));
-		int substitutions = levenshtein(tail(word1), tail(word2));
+		int substitutions = levenshtein(tail(word1), tail(word2)) + step;
 
 		return 1 + Math.min(Math.min(deletions, insertions),substitutions);
 		
