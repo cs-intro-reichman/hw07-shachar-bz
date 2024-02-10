@@ -45,9 +45,11 @@ public class HashTagTokenizer {
         for (int i = 1; i <= N; i++) {
 			String word = hashtag.substring(0 , i);
 			// if the loop found a word, call the function again and make the word shorter
+		// #feedback - no need to compare to "true", existInDictionary already returns a boolean (true or false).
 			if(existInDictionary(word, dictionary) == true){
 				newStart = i;
 				System.out.println(word);
+				// #feedback - here you should call breakHashTag again. "break" will break from the current iteration in this for loop.
 				break;
 			}
         }

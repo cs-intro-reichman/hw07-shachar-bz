@@ -33,6 +33,7 @@ public class SpellChecker {
 		}
 		int deletions = levenshtein(tail(word1), word2); 
 		int insertions = levenshtein(word1, tail(word2));
+		// #feedback - step is 0 here, so the "+ step" is redundant and can be removed.
 		int substitutions = levenshtein(tail(word1), tail(word2)) + step;
 
 		return 1 + Math.min(Math.min(deletions, insertions),substitutions);
